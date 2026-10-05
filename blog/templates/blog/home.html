@@ -4,3 +4,32 @@
     <h1>Welcome to DjangoBlog</h1>
     <p>How to makwe money.</p>
 {% endblock %}
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<div class="text-center">
+
+    <h1 class="js">Welcome to {{ title }}!</h1>
+
+    <p>Very nice to meet you!</p>
+
+    <div class="video-wrap mx-auto">
+
+        <video autoplay muted loop playsinline>
+
+            <source src="{% static 'blog/videos/holiday-diy.mp4' %}"
+                    type="video/mp4">
+
+            Your browser does not support the video tag.
+
+        </video>
+
+    </div>
+
+</div>
+
+{% endblock %}

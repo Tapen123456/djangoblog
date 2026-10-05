@@ -1,0 +1,39 @@
+body{
+    background-color: white;
+}
+.navbar-brand{
+    front-weight:bold;
+    letter-spacing: 0.5px;
+}
+body {
+    background-color: #000;
+}
+
+.navbar-brand img {
+    border-radius: 50%;
+    object-fit: cover;
+    width: 30px;
+    height: 30px;
+}
+
+.js {
+    font-weight: 800;
+    background: linear-gradient(90deg, #3b82f6, #996dff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    letter-spacing: -0.5px;
+}
+
+.video-wrap {
+    max-width: 480px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(102, 126, 255, 0.35);
+}
+
+.video-wrap video {
+    display: block;
+    width: 100%;
+    height: auto;
+}

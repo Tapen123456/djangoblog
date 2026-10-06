@@ -25,7 +25,13 @@
       {{ post.content|linebreaks }}
 
       <a href="{% url 'home' %}" class="btn btn-secondary mt-3">← Back</a>
+      {% if post.cover_image %}
+  <img src="{{ post.cover_image.url }}" class="img-fluid rounded mb-3" alt="{{ post.title }}">
+{% endif %}
     </div>
   </div>
 </div>
 {% endblock %}
+{% if post.cover_image %}
+  <img src="{{ post.cover_image.url }}" class="img-fluid rounded mb-3" alt="{{ post.title }}">
+{% endif %}

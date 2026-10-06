@@ -53,3 +53,9 @@
     {% endfor %}
 </ul>
 {% endblock %}
+{% if post.cover_image %}
+  <img src="{{ post.cover_image.url }}" class="card-img-top" alt="{{ post.title }}">
+  {% if post.cover_image %}
+  <img src="{{ post.cover_image.url }}" class="card-img-top" alt="{{ post.title }}">
+{% endif %}
+{% endif %}

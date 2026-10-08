@@ -132,14 +132,18 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-import os
+
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Login / Logout どこに行くのか
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "home"

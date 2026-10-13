@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.utils.text import slugify
 from PIL import Image
@@ -29,21 +30,39 @@ class Post(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default="published")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, related_name="posts")
+
+    # Author field (null=True because old posts have no author)
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="posts",
+        null=True,
+    )
+
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="posts",
+    )
     tags = models.ManyToManyField(Tag, blank=True, related_name="posts")
-    image = models.ImageField(upload_to='posts/', blank=True, null=True)
+    image = models.ImageField(upload_to="posts/", blank=True, null=True)
     cover_image = models.ImageField(upload_to="post_covers/", blank=True, null=True)
 
     def save(self, *args, **kwargs):
+        # If slug is empty, build it from the title and add -2, -3... on duplicates
         if not self.slug:
-            self.slug = slugify(self.title)
-        super().save(*args, **kwargs)
-        if self.cover_image:
-            img_path = self.cover_image.path
-            img = Image.open(img_path)
-            if img.height > 800 or img.width > 800:
-                img.thumbnail((800, 800))
-                img.save(img_path)
+            base = slugify(self.title, allow_unicode=True) or "post"
+            slug = base
+            n = 2
+            while Post.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base}-{n}"
+                n += 1
+            self.slug = slug
 
-    def __str__(self):
-        return self.title
+        super().save(*args, **kwargs)
+
+        # Shrink the cover image if it is larger than 800px
+        if self.cover_image:
+                        img_path = self.cover_image.path

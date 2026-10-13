@@ -1,39 +1,188 @@
-body{
-    background-color: white;
+/* Global site styles (body, text, layout) */
+
+:root {
+  --bg: #f5f6f8;
+  --text: #1f2933;
+  --muted: #6b7280;
+  --border: #e3e6ea;
+  --link: #0d6efd;
 }
-.navbar-brand{
-    front-weight:bold;
-    letter-spacing: 0.5px;
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-    background-color: #000;
+  margin: 0;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+    "Yu Gothic", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--text);
+  background-color: var(--bg);
+  -webkit-font-smoothing: antialiased;
 }
 
-.navbar-brand img {
-    border-radius: 50%;
-    object-fit: cover;
-    width: 30px;
-    height: 30px;
+/* headings */
+h1, h2, h3, h4 {
+  line-height: 1.3;
+  margin-top: 0;
 }
 
-.js {
-    font-weight: 800;
-    background: linear-gradient(90deg, #3b82f6, #996dff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    letter-spacing: -0.5px;
+/* links */
+a {
+  color: var(--link);
 }
 
-.video-wrap {
-    max-width: 480px;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 0 40px rgba(102, 126, 255, 0.35);
+/* images never overflow */
+img {
+  max-width: 100%;
+  height: auto;
 }
 
-.video-wrap video {
-    display: block;
-    width: 100%;
-    height: auto;
+/* main content spacing */
+main,
+.container {
+  padding-top: 1.5rem;
+  padding-bottom: 2rem;
+}
+
+/* post cards */
+.card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* flash messages */
+.alert {
+  border-radius: 8px;
+}
+
+/* footer sticks to bottom on short pages */
+footer {
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: center;
+  padding: 1.5rem 0;
+}
+
+/* Login / Register pages */
+
+.auth-wrap {
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  color: #1f2933;
+  border: 1px solid #e3e6ea;
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
+
+.auth-card h1 {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin: 0 0 1.5rem;
+  text-align: center;
+}
+
+/* form.as_p wraps each field in <p> */
+.auth-card form p {
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-card label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.auth-card input[type="text"],
+.auth-card input[type="email"],
+.auth-card input[type="password"] {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  font-size: 1rem;
+  border: 1px solid #c9ced6;
+  border-radius: 8px;
+  background: #fff;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+.auth-card input:focus {
+  outline: none;
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.2);
+}
+
+/* help text (password rules etc.) */
+.auth-card .helptext,
+.auth-card form ul:not(.errorlist) {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-top: 0.35rem;
+}
+
+.auth-card form ul:not(.errorlist) {
+  padding-left: 1.1rem;
+}
+
+/* validation errors */
+.auth-card .errorlist {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0.5rem;
+  color: #b42318;
+  font-size: 0.85rem;
+}
+
+.auth-card button[type="submit"] {
+  width: 100%;
+  padding: 0.65rem;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.auth-links {
+  margin-top: 1.25rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.auth-links a {
+  text-decoration: none;
+}
+
+.auth-links a:hover {
+  text-decoration: underline;
+}
+
+.auth-links p {
+  margin: 0.4rem 0;
 }

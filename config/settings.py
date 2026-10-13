@@ -147,3 +147,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Login / Logout どこに行くのか
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {messages.ERROR: "danger"}
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {messages.ERROR: "danger"}
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

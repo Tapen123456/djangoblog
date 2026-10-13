@@ -1,0 +1,22 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% block title %}Log in{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static 'blog/css/style.css' %}">
+
+<div class="auth-wrap">
+  <div class="auth-card">
+    <h1>Log in</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Log in</button>
+    </form>
+    <div class="auth-links">
+      <p><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
+      <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+    </div>
+  </div>
+</div>
+{% endblock %}

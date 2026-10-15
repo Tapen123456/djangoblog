@@ -186,3 +186,7 @@ footer {
 .auth-links p {
   margin: 0.4rem 0;
 }
+.card-img-top {
+  height: 200px;
+  object-fit: cover;
+}

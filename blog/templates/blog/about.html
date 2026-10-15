@@ -1,3 +1,4 @@
 <center><h1>About {{ title }}</h1>
 <p>our goal is provide valuable resources and insights to the django community.</p>
+<a class="nav-link text-white {% if request.resolver_match.url_name == 'about' %}fw-bold text-decoration-underline{% endif %}" href="{% url 'about' %}">About</a>
 </center>

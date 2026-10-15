@@ -1,3 +1,4 @@
 <center><h1>Contact {{ title }}</h1>
 <p>wah vai wah </p>
+<a class="nav-link text-white {% if request.resolver_match.url_name == 'about' %}fw-bold text-decoration-underline{% endif %}" href="{% url 'about' %}">About</a>
 </center>

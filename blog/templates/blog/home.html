@@ -7,6 +7,7 @@
 <div class="text-center">
   <h1 class="js">Welcome to {{ title }}!</h1>
   <p>Very nice to meet you!</p>
+  <a class="nav-link text-white {% if request.resolver_match.url_name == 'about' %}fw-bold text-decoration-underline{% endif %}" href="{% url 'about' %}">About</a>
 
   <div class="video-wrap mx-auto">
     <video autoplay muted loop playsinline>

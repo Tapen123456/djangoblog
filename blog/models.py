@@ -65,4 +65,8 @@ class Post(models.Model):
 
         # Shrink the cover image if it is larger than 800px
         if self.cover_image:
-                        img_path = self.cover_image.path
+            img_path = self.cover_image.path
+            img = Image.open(img_path)
+            if img.height > 800 or img.width > 800:
+                img.thumbnail((800, 800))
+                img.save(img_path)

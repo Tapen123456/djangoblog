@@ -1,4 +1,104 @@
-<center><h1>Contact {{ title }}</h1>
-<p>wah vai wah </p>
-<a class="nav-link text-white {% if request.resolver_match.url_name == 'about' %}fw-bold text-decoration-underline{% endif %}" href="{% url 'about' %}">About</a>
-</center>
+{% extends 'blog/base.html' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+<style>
+  /* पछाडिको रङ बिस्तारै बदलिने */
+  body {
+    transition: background-color 1.5s ease;
+  }
+  .contact-wrap {
+    max-width: 520px;
+  }
+  .contact-icon {
+    width: 70px;
+    height: 70px;
+    line-height: 70px;
+    font-size: 2rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #0d6efd, #6610f2);
+    color: #fff;
+    margin: 0 auto 12px;
+  }
+  .contact-card {
+    border: none;
+    border-top: 5px solid #0d6efd;
+    border-radius: 12px;
+  }
+  .contact-card .form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.2);
+  }
+  .btn-send {
+    background: linear-gradient(135deg, #0d6efd, #6610f2);
+    border: none;
+    color: #fff;
+  }
+  .btn-send:hover {
+    opacity: 0.9;
+    color: #fff;
+  }
+
+  .rc {
+    transition: color 1s ease;
+  }
+</style>
+
+<div class="container contact-wrap mt-4">
+
+  <div class="text-center mb-4">
+    <div class="contact-icon">📞</div>
+
+    <h1>
+      <span class="rc">C</span><span class="rc">o</span><span class="rc">n</span><span class="rc">t</span><span class="rc">a</span><span class="rc">c</span><span class="rc">t</span>
+    </h1>
+
+    <p class="text-muted">Have a question? Send us a message.</p>
+  </div>
+
+  <div class="card contact-card shadow">
+    <div class="card-body p-4">
+      <form method="post">
+        {% csrf_token %}
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold rc">Name</label>
+          <input type="text" name="name" class="form-control" placeholder="Your Name" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold rc">Email</label>
+          <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label fw-semibold rc">Message</label>
+          <textarea name="message" class="form-control" rows="5" placeholder="Write your message here" required></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-send w-100">Send</button>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  var colors = ["#dc3545", "#fd7e14", "#ffc107", "#198754", "#0dcaf0", "#0d6efd", "#6610f2"];
+  var bgColors = ["#ffe3e6", "#ffecd9", "#fff8d6", "#dff5e8", "#d9f6fc", "#dce8ff", "#ebdcff"];
+  var items = document.querySelectorAll(".rc");
+  var step = 0;
+
+  function changeColors() {
+    items.forEach(function (el, i) {
+      el.style.color = colors[(i + step) % colors.length];
+    });
+    document.body.style.backgroundColor = bgColors[step % bgColors.length];
+    step++;
+  }
+
+  changeColors();
+  setInterval(changeColors, 3000);
+</script>
+{% endblock %}

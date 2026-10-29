@@ -1,4 +1,173 @@
-<center><h1>About {{ title }}</h1>
-<p>our goal is provide valuable resources and insights to the django community.</p>
-<a class="nav-link text-white {% if request.resolver_match.url_name == 'about' %}fw-bold text-decoration-underline{% endif %}" href="{% url 'about' %}">About</a>
-</center>
+{% extends 'blog/base.html' %}
+{% load static %}
+
+{% block title %}About | Tapen Blog{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    transition: background-color 1.5s ease;
+  }
+  .about-wrap {
+    max-width: 800px;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+  .rc {
+    transition: color 1s ease;
+  }
+  .about-card {
+    border: none;
+    border-top: 5px solid #0b3a75;
+    border-radius: 12px;
+  }
+  .feature-card {
+    border: none;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+  .feature-icon {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+  }
+  .stat-box {
+    border-radius: 12px;
+    color: #fff;
+    padding: 20px 10px;
+    background: linear-gradient(135deg, #0b3a75, #0d6efd);
+  }
+  .stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  .btn-about {
+    background: linear-gradient(135deg, #f28c1b, #f5a623);
+    border: none;
+    color: #fff;
+  }
+  .btn-about:hover {
+    opacity: 0.9;
+    color: #fff;
+  }
+</style>
+
+<div class="container about-wrap mt-4">
+
+  <!-- Header -->
+  <div class="text-center mb-4">
+    <img src="{% static 'blog/css/image.png' %}" alt="Tapen Blog"
+         style="width:100px; height:100px; max-width:100px; object-fit:contain; display:block; margin:0 auto 12px; animation: float 3s ease-in-out infinite;">
+    <h1>
+      <span class="rc">A</span><span class="rc">b</span><span class="rc">o</span><span class="rc">u</span><span class="rc">t</span>
+    </h1>
+    <p class="text-muted">Learn more about Tapen Blog</p>
+  </div>
+
+  <!-- Main description -->
+  <div class="card about-card shadow mb-4">
+    <div class="card-body p-4 text-center">
+      <h4 class="rc mb-3">Welcome to Tapen Blog</h4>
+      <p>This is the Tapen Blog About page.</p>
+      <p class="mb-0">Our goal is to provide valuable resources and insights to the Django community.</p>
+    </div>
+  </div>
+
+  <!-- Features -->
+  <div class="row text-center mb-4">
+    <div class="col-md-4 mb-3">
+      <div class="card feature-card shadow-sm h-100">
+        <div class="card-body">
+          <div class="feature-icon">📝</div>
+          <h5 class="rc">Tutorials</h5>
+          <p class="text-muted mb-0">Easy step-by-step guides for learning Django.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card feature-card shadow-sm h-100">
+        <div class="card-body">
+          <div class="feature-icon">💡</div>
+          <h5 class="rc">Insights</h5>
+          <p class="text-muted mb-0">Tips and best practices from real projects.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card feature-card shadow-sm h-100">
+        <div class="card-body">
+          <div class="feature-icon">🤝</div>
+          <h5 class="rc">Community</h5>
+          <p class="text-muted mb-0">Learn and grow together with other developers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="row text-center mb-4">
+    <div class="col-4">
+      <div class="stat-box shadow-sm">
+        <div class="stat-number" data-target="50">0</div>
+        <small>Articles</small>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="stat-box shadow-sm">
+        <div class="stat-number" data-target="1000">0</div>
+        <small>Readers</small>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="stat-box shadow-sm">
+        <div class="stat-number" data-target="25">0</div>
+        <small>Topics</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact button -->
+  <div class="text-center mb-5">
+    <a href="{% url 'contact' %}" class="btn btn-about px-4 py-2">📞 Contact Us</a>
+  </div>
+
+</div>
+
+<script>
+  var colors = ["#dc3545", "#fd7e14", "#ffc107", "#198754", "#0dcaf0", "#0d6efd", "#6610f2"];
+  var bgColors = ["#ffe3e6", "#ffecd9", "#fff8d6", "#dff5e8", "#d9f6fc", "#dce8ff", "#ebdcff"];
+  var items = document.querySelectorAll(".rc");
+  var step = 0;
+
+  function changeColors() {
+    items.forEach(function (el, i) {
+      el.style.color = colors[(i + step) % colors.length];
+    });
+    document.body.style.backgroundColor = bgColors[step % bgColors.length];
+    step++;
+  }
+
+  changeColors();
+  setInterval(changeColors, 3000);
+
+  // Counting animation for stats
+  document.querySelectorAll(".stat-number").forEach(function (el) {
+    var target = parseInt(el.getAttribute("data-target"));
+    var current = 0;
+    var increment = Math.max(1, Math.ceil(target / 60));
+    var timer = setInterval(function () {
+      current += increment;
+      if (current >= target) {
+        current = target;
+        clearInterval(timer);
+      }
+      el.textContent = current + "+";
+    }, 30);
+  });
+</script>
+{% endblock %}

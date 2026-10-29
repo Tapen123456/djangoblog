@@ -1,19 +1,206 @@
 {% extends "blog/base.html" %}
 {% load static %}
 
-{% block title %}Home{% endblock %}
+{% block title %}Home | Tapen Blog{% endblock %}
 
 {% block content %}
-<div class="text-center">
-  <h1 class="js">Welcome to {{ title }}!</h1>
-  <p>Very nice to meet you!</p>
-  <a class="nav-link text-white {% if request.resolver_match.url_name == 'about' %}fw-bold text-decoration-underline{% endif %}" href="{% url 'about' %}">About</a>
+<style>
+  .hero {
+    background: linear-gradient(135deg, #0b3a75, #0d6efd);
+    color: #fff;
+    border-radius: 20px;
+    padding: 50px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before,
+  .hero::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(242, 140, 27, 0.25);
+    animation: floaty 6s ease-in-out infinite;
+  }
+  .hero::before { width: 220px; height: 220px; top: -60px; left: -60px; }
+  .hero::after  { width: 160px; height: 160px; bottom: -40px; right: -40px; animation-delay: 2s; }
+  @keyframes floaty {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(18px); }
+  }
+  .hero h1 {
+    font-weight: 800;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 .accent {
+    color: #f5a623;
+  }
+  .hero p {
+    font-size: 1.15rem;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-btns {
+    position: relative;
+    z-index: 1;
+  }
+  .btn-orange {
+    background: linear-gradient(135deg, #f28c1b, #f5a623);
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .btn-orange:hover {
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(242, 140, 27, 0.45);
+  }
+  .btn-white {
+    background: #fff;
+    color: #0b3a75;
+    font-weight: 600;
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .btn-white:hover {
+    color: #0b3a75;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  }
+  .video-wrap {
+    max-width: 780px;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 5px solid #fff;
+    box-shadow: 0 15px 40px rgba(11, 58, 117, 0.35);
+    margin-top: -30px;
+    position: relative;
+    z-index: 2;
+  }
+  .video-wrap video {
+    width: 100%;
+    display: block;
+  }
+  .feature-card {
+    border: none;
+    border-radius: 16px;
+    border-top: 4px solid #f28c1b;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+  }
+  .feature-icon {
+    font-size: 2.4rem;
+  }
+  .cta {
+    background: linear-gradient(135deg, #f28c1b, #f5a623);
+    color: #fff;
+    border-radius: 20px;
+    padding: 35px 20px;
+  }
+  .fade-up {
+    opacity: 0;
+    transform: translateY(25px);
+    animation: fadeUp 0.9s ease forwards;
+  }
+  .d1 { animation-delay: 0.1s; }
+  .d2 { animation-delay: 0.3s; }
+  .d3 { animation-delay: 0.5s; }
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .typed-cursor {
+    border-right: 3px solid #f5a623;
+    animation: blink 0.8s infinite;
+  }
+  @keyframes blink {
+    50% { border-color: transparent; }
+  }
+</style>
 
-  <div class="video-wrap mx-auto">
+<div class="text-center">
+
+  <!-- Hero -->
+  <div class="hero shadow pb-5 mb-5">
+    <h1 class="display-5 fade-up d1">
+      Welcome to <span class="accent">{{ title|default:"Tapen Blog" }}</span>!
+    </h1>
+    <p class="fade-up d2">
+      <span id="typed" class="typed-cursor"></span>
+    </p>
+    <div class="hero-btns fade-up d3 mt-4">
+      <a href="{% url 'about' %}" class="btn btn-orange px-4 py-2 me-2">📘 About Us</a>
+      <a href="{% url 'contact' %}" class="btn btn-white px-4 py-2">📞 Contact</a>
+    </div>
+  </div>
+
+  <!-- Video -->
+  <div class="video-wrap mx-auto mb-5 fade-up d3">
     <video autoplay muted loop playsinline>
       <source src="{% static 'blog/videos/holiday-diy.mp4' %}" type="video/mp4">
       Your browser does not support the video tag.
     </video>
   </div>
+
+  <!-- Features -->
+  <div class="row mb-5">
+    <div class="col-md-4 mb-3">
+      <div class="card feature-card shadow-sm h-100">
+        <div class="card-body">
+          <div class="feature-icon">✍️</div>
+          <h5 class="mt-2" style="color:#0b3a75;">Write</h5>
+          <p class="text-muted mb-0">Share your ideas and stories with everyone.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card feature-card shadow-sm h-100">
+        <div class="card-body">
+          <div class="feature-icon">📚</div>
+          <h5 class="mt-2" style="color:#0b3a75;">Read</h5>
+          <p class="text-muted mb-0">Discover interesting posts from other writers.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card feature-card shadow-sm h-100">
+        <div class="card-body">
+          <div class="feature-icon">🌱</div>
+          <h5 class="mt-2" style="color:#0b3a75;">Grow</h5>
+          <p class="text-muted mb-0">Learn, improve and grow with the community.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Call to action -->
+  <div class="cta shadow mb-4">
+    <h3 class="fw-bold">Ready to start writing?</h3>
+    <p class="mb-3">Create your first post today.</p>
+    {% if request.user.is_authenticated %}
+      <a href="{% url 'post_create' %}" class="btn btn-white px-4 py-2">📝 New Post</a>
+    {% else %}
+      <a href="{% url 'register' %}" class="btn btn-white px-4 py-2">🚀 Join Now</a>
+    {% endif %}
+  </div>
+
 </div>
+
+<script>
+  // Typing effect
+  var text = "Very nice to meet you! Read, write and share.";
+  var el = document.getElementById("typed");
+  var i = 0;
+  function type() {
+    if (i <= text.length) {
+      el.textContent = text.substring(0, i);
+      i++;
+      setTimeout(type, 55);
+    }
+  }
+  type();
+</script>
 {% endblock %}
